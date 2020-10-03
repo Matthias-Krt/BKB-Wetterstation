@@ -1,0 +1,85 @@
+<html>
+    
+    <head>
+        <title>Wetterstation Dashboard</title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        
+        <link rel="stylesheet" href="css/style.css">
+        
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+        
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="js/setting.js"></script>
+        <script src="js/moment.js"></script>
+        <script src="js/sensebox.js"></script>
+    </head>
+    
+    <body>
+        
+        <div id="header">
+            <div>
+                <img src="img/logo/bklogo.png">
+            </div>
+            <div>
+                <h1 class="datetime"></h1>
+            </div>
+        </div>
+        
+        <div id="slider">
+            <!--PLACEHOLDER-->
+        </div>
+        
+        <div id="data"><!--PLACEHOLDER--></div>
+        
+        <script>
+            $(document).ready(function() {
+                
+                console.log(setting.sliderSpeed);
+                //Date & Time
+                /*
+                moment.locale('de'); 
+                $(".datetime").text(moment().format('Do MMMM YYYY HH:MM'));
+                setInterval(function() {
+                    var date = moment().format('Do MMMM YYYY HH:MM');
+                    console.log(date);
+                    $(".datetime").text(date);
+                }, 1000);
+                */
+                
+                //SenseBox
+                getSenseBoxData().done(function(result) {                    
+                    for(var i = 0; i < result.sensors.length; i++) {
+                        var title = result.sensors[i].title;
+                        var lastMeasurement = result.sensors[i].lastMeasurement.value;
+                        var unit = result.sensors[i].unit;
+                        
+                        $("#data").append("<div><h1>" + lastMeasurement + unit + "</h1><h2>" + title + "</h2></div>");
+                    }
+                    
+                }).fail(function() {
+                    //TODO: Error Handling
+                   console.log("getSenseBoxData() failed"); 
+                });
+                
+                var sliderNum = 0;
+                setInterval(function() {
+                    getSenseBoxData().done(function(result) {                        
+                        $("#slider").html("<h1>" + result.sensors[sliderNum].lastMeasurement.value + result.sensors[sliderNum].unit + "</h1><h2>" + result.sensors[sliderNum].title + "</h2>");
+                    
+                        if(sliderNum < result.sensors.length-1) {
+                            sliderNum++;
+                        } else {
+                            sliderNum = 0;
+                        }
+                    }).fail(function() {
+                        //TODO: Error Handling
+                        console.log("getSenseBoxData failed");
+                    });
+                }, 3000);
+            });
+        </script>
+        
+    </body>
+    
+</html>
