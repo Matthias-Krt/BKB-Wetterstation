@@ -12,21 +12,22 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="js/moment.js"></script>
         <script src="js/sensebox.js"></script>
     </head>
     
     <body>
         
-        <div id="header"><!--PLACEHOLDER--></div>
+        <div id="header-placeholder"><!--PLACEHOLDER--></div>
         
         <div id="slider"><!--PLACEHOLDER--></div>
         
         <div id="data"><!--PLACEHOLDER--></div>
         
         <script>
-            $("#header").load("/common/header.html");
-            
+            $("#header-placeholder").load("/common/header.html");
+        </script>
+        
+        <script>            
             var sliderNum = 0;
             var sliderSpeed = 3000;
             var dataUpdateInterval = 3000;
@@ -66,17 +67,6 @@
                 
                 setSenseBoxSlider();
                 setSenseBoxData();
-                
-                /* ### Date & Time ### */
-                /*
-                moment.locale('de'); 
-                $(".datetime").text(moment().format('Do MMMM YYYY HH:MM'));
-                setInterval(function() {
-                    var date = moment().format('Do MMMM YYYY HH:MM');
-                    console.log(date);
-                    $(".datetime").text(date);
-                }, 1000);
-                */
                 
                 /* ### SenseBox ### */
                 //Slider

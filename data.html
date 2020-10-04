@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="js/moment.js"></script>
         <script src="js/sensebox.js"></script>
     </head>
     
@@ -20,19 +19,22 @@
         
         <div id="header-placeholder"><!--PLACEHOLDER--></div>
         <div id="menu-placeholder"><!--PLACEHOLDER--></div>
-
-        <script>
-            $("#header-placeholder").load("/common/header.html");
-            $("#menu-placeholder").load("/common/menu.html");
-        </script>
         
-        <div id="btn-group">
-            <button id="reload-data"><i class="fa fa-refresh"></i></button>
+        <div id="controls">
+            <button class="btn" id="reload-data"><i class="fa fa-refresh"></i></button>
         </div>
         
         <table id="data-table">
             <tr><th>Titel</th><th>Wert</th><th>Einheit</th><th>Sensor Typ</th><th>gemessen am</th></tr>
         </table>
+        
+        <div id="footer-placeholder"><!--PLACEHOLDER--></div>
+        
+        <script>
+            $("#header-placeholder").load("/common/header.html");
+            $("#menu-placeholder").load("/common/menu.html");
+            $("#footer-placeholder").load("/common/footer.html")
+        </script>
         
         <script>            
             function setSenseBoxData() {
@@ -44,13 +46,13 @@
                         var value = result.sensors[i].lastMeasurement.value;
                         var unit = result.sensors[i].unit;
                         var sensorType = result.sensors[i].sensorType;
-                        var createdAt = result.sensors[i].lastMeasurement.createdAt;
+                        var createdAt = new Date(Date.parse(result.sensors[i].lastMeasurement.createdAt));
                         
                         $("#data-table").append("<tr><td>" + title + "</td><td>" + value + "</td><td>" + unit + "</td><td>" + sensorType + "</td><td>" + createdAt + "</td></tr>");
                     }
                 })
             }
-        
+            
             setSenseBoxData();
             
             $("#reload-data").click(function() { 
