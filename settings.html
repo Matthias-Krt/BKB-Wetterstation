@@ -13,7 +13,6 @@
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <script src="js/moment.js"></script>
         <script src="js/sensebox.js"></script>
-        <script src="js/setting.js"></script>
     </head>
     
     <body>
@@ -32,15 +31,15 @@
             <p id="slider-speed">Speed: </p>
         </div>
         
-        <script>
+        <script>            
             var slider = document.getElementById("slider-speed-range");
             $("#slider-speed").text("Speed: " + slider.value);
             sliderSpeed = slider.value;
-            setting.sliderSpeed = slider.value;
+            sliderSpeed = slider.value;
             
             slider.oninput = function() {
                 $("#slider-speed").text("Speed: " + slider.value);
-                setting.sliderSpeed = slider.value;
+                sliderSpeed = slider.value;
                 console.log(sliderSpeed);
             }
         </script>

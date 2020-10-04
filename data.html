@@ -1,0 +1,63 @@
+<html>
+    
+    <head>
+        <title>Wetterstation Daten</title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/data.css">
+        
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="js/moment.js"></script>
+        <script src="js/sensebox.js"></script>
+    </head>
+    
+    <body>
+        
+        <div id="header-placeholder"><!--PLACEHOLDER--></div>
+        <div id="menu-placeholder"><!--PLACEHOLDER--></div>
+
+        <script>
+            $("#header-placeholder").load("/common/header.html");
+            $("#menu-placeholder").load("/common/menu.html");
+        </script>
+        
+        <div id="btn-group">
+            <button id="reload-data"><i class="fa fa-refresh"></i></button>
+        </div>
+        
+        <table id="data-table">
+            <tr><th>Titel</th><th>Wert</th><th>Einheit</th><th>Sensor Typ</th><th>gemessen am</th></tr>
+        </table>
+        
+        <script>            
+            function setSenseBoxData() {
+                getSenseBoxData().done(function(result) {
+                    $("#data-table").html("<tr><th>Titel</th><th>Wert</th><th>Einheit</th><th>Sensor Typ</th><th>gemessen am</th></tr>");
+                    
+                    for(var i = 0; i < result.sensors.length; i++) {
+                        var title = result.sensors[i].title;
+                        var value = result.sensors[i].lastMeasurement.value;
+                        var unit = result.sensors[i].unit;
+                        var sensorType = result.sensors[i].sensorType;
+                        var createdAt = result.sensors[i].lastMeasurement.createdAt;
+                        
+                        $("#data-table").append("<tr><td>" + title + "</td><td>" + value + "</td><td>" + unit + "</td><td>" + sensorType + "</td><td>" + createdAt + "</td></tr>");
+                    }
+                })
+            }
+        
+            setSenseBoxData();
+            
+            $("#reload-data").click(function() { 
+                setSenseBoxData();
+            });
+        </script>
+        
+    </body>
+    
+</html>

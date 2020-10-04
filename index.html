@@ -6,78 +6,97 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/index.css">
         
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="js/setting.js"></script>
         <script src="js/moment.js"></script>
         <script src="js/sensebox.js"></script>
     </head>
     
     <body>
         
-        <div id="header">
-            <div>
-                <img src="img/logo/bklogo.png">
+        <div id="header-placeholder"><!--PLACEHOLDER--></div>
+        <div id="menu-placeholder"><!--PLACEHOLDER--></div>
+        
+        <div id="gallery-container">
+            <div class="slide">
+                <div class="numbertext">1/6</div>
+                <img src="img/logo/bklogo.png" style="width: 100%">
+                <div class="caption">Caption</div>
             </div>
-            <div>
-                <h1 class="datetime"></h1>
+            
+            <div class="slide">
+                <div class="numbertext">2/6</div>
+                <img src="img/logo/bklogo.png" style="width: 100%">
+                <div class="caption">Caption</div>
             </div>
-        </div>
-        
-        <div id="slider">
-            <!--PLACEHOLDER-->
-        </div>
-        
-        <div id="data"><!--PLACEHOLDER--></div>
-        
-        <script>
-            $(document).ready(function() {
+            
+            <div class="slide">
+                <div class="numbertext">3/6</div>
+                <img src="img/logo/bklogo.png" style="width: 100%">
+                <div class="caption">Caption</div>
+            </div>
+            
+            <div class="slide">
+                <div class="numbertext">4/6</div>
+                <img src="img/logo/bklogo.png" style="width: 100%">
+                <div class="caption">Caption</div>
+            </div>
+            
+            <div class="slide">
+                <div class="numbertext">5/6</div>
+                <img src="img/logo/bklogo.png" style="width: 100%">
+                <div class="caption">Caption</div>
+            </div>
+            
+            <div class="slide">
+                <div class="numbertext">6/6</div>
+                <img src="img/logo/bklogo.png" style="width: 100%">
+                <div class="caption">Caption</div>
+            </div>
+            
+            <!--
+            <a class="prev" onclick="nextSlide(-1)">&#10094;</a>
+            <a class="next" onclick="nextSlide(1)">&#10095;</a>
+            -->
+            <script>                
+                var slideIndex = 0;
                 
-                console.log(setting.sliderSpeed);
-                //Date & Time
-                /*
-                moment.locale('de'); 
-                $(".datetime").text(moment().format('Do MMMM YYYY HH:MM'));
-                setInterval(function() {
-                    var date = moment().format('Do MMMM YYYY HH:MM');
-                    console.log(date);
-                    $(".datetime").text(date);
-                }, 1000);
-                */
+                function showSlide() {
+                    var slides = document.getElementsByClassName("slide");
+                    
+                    if (slideIndex > slides.length) {slideIndex = 1}
+                    slides[slideIndex-1].style.display = "block";
+                }
                 
-                //SenseBox
-                getSenseBoxData().done(function(result) {                    
-                    for(var i = 0; i < result.sensors.length; i++) {
-                        var title = result.sensors[i].title;
-                        var lastMeasurement = result.sensors[i].lastMeasurement.value;
-                        var unit = result.sensors[i].unit;
-                        
-                        $("#data").append("<div><h1>" + lastMeasurement + unit + "</h1><h2>" + title + "</h2></div>");
+                function showSlides() {
+                    var slides = document.getElementsByClassName("slide");
+                    for (var i = 0; i < slides.length; i++) {
+                        slides[i].style.display = "none";
                     }
                     
-                }).fail(function() {
-                    //TODO: Error Handling
-                   console.log("getSenseBoxData() failed"); 
-                });
-                
-                var sliderNum = 0;
-                setInterval(function() {
-                    getSenseBoxData().done(function(result) {                        
-                        $("#slider").html("<h1>" + result.sensors[sliderNum].lastMeasurement.value + result.sensors[sliderNum].unit + "</h1><h2>" + result.sensors[sliderNum].title + "</h2>");
+                    slideIndex++;
                     
-                        if(sliderNum < result.sensors.length-1) {
-                            sliderNum++;
-                        } else {
-                            sliderNum = 0;
-                        }
-                    }).fail(function() {
-                        //TODO: Error Handling
-                        console.log("getSenseBoxData failed");
-                    });
-                }, 3000);
-            });
+                    showSlide();
+                }
+                
+                showSlides();
+                setInterval(function() {
+                    showSlides();
+                }, 5000);
+            </script>
+        </div>
+        
+        <div id="about">
+            <h1>Über das Projekt</h1>
+        </div>
+
+        <script>
+            $("#header-placeholder").load("/common/header.html");
+            $("#menu-placeholder").load("/common/menu.html");
         </script>
         
     </body>
