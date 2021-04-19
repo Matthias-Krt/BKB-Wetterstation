@@ -46,6 +46,9 @@
             
             padding: 16px 0 0 0;
         }
+        .wrapper header img {
+            width: 90%;        
+        }
 
         .flex-container {
             flex: 1 1 auto;
@@ -80,7 +83,7 @@
             justify-content: center;
         }
         
-        @media screen and (max-width: 480px) {
+        @media screen and (min-width: 480px) {
             .wrapper header > img {
                 width: 90%;
                 height: auto;
@@ -127,7 +130,7 @@
                         //TODO: Error Handling
                     }
                     
-                    $("#data").append("<div class='card'><h1>" + lastMeasurement + unit + "</h1><p>" + title + "</p><span>" + createdAt.getDate() + "</span></div>");
+                    $("#data").append("<div class='card'><h1>" + lastMeasurement + unit + "</h1><p>" + title + "</p><span>" + createdAt + "</span></div>");
                 }
             });
         }
