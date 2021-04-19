@@ -117,11 +117,13 @@
             $("#data").html("");
             
             var data = $.getJSON(url + senseID + '/sensors', function(data) { 
+                console.log(data);
                 for(var i = 0; i < data.sensors.length; i++) {
                     try {
                         var title = data.sensors[i].title;
                         var lastMeasurement = data.sensors[i].lastMeasurement.value;
-                        var unit = data.sensors[i].unit; 
+                        var unit = data.sensors[i].unit;
+                        var lastMeasurementTime;
                     } catch(err) {
                         //TODO: Error Handling
                     }
@@ -134,7 +136,7 @@
         $(document).ready(function() {
             getSenseBoxData();
             
-           // setInterval(function() { location.reload(); }, updateInterval);
+            setInterval(function() { getSenseBoxData(); }, updateInterval);
         });
     </script>
 </body>
