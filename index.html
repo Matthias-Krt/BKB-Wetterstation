@@ -117,7 +117,6 @@
             $("#data").html("");
             
             var data = $.getJSON(url + senseID + '/sensors', function(data) { 
-                console.log(data);
                 for(var i = 0; i < data.sensors.length; i++) {
                     try {
                         var title = data.sensors[i].title;
@@ -128,7 +127,7 @@
                         //TODO: Error Handling
                     }
                     
-                    $("#data").append("<div class='card'><h1>" + lastMeasurement + unit + "</h1><p>" + title + "<br>" + createdAt + "</p></div>");
+                    $("#data").append("<div class='card'><h1>" + lastMeasurement + unit + "</h1><p>" + title + "</p><span>" + createdAt + "</span></div>");
                 }
             });
         }
@@ -136,7 +135,7 @@
         $(document).ready(function() {
             getSenseBoxData();
             
-            setInterval(function() { getSenseBoxData(); }, updateInterval);
+            setInterval(function() { location.reload(); }, updateInterval);
         });
     </script>
 </body>
